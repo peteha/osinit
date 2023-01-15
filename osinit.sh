@@ -225,8 +225,6 @@ then
     reboot
 fi
 
-
-
 ##
 ## Finish ##
 ##
