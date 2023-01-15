@@ -4,6 +4,7 @@ echo "## Setting Up OS Build Directory ##"
 ##
 echo "## Scripts Installed - remove /opt/osbuild/hostbuild.env to reset ##"
 echo "## Using hostbuild.env ##"
+nano hostbuild.env
 source hostbuild.env
 
 echo "## Setting variable ##"
