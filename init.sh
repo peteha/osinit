@@ -30,9 +30,8 @@ if [[ $buildhostname == "" ]]; then
     echo "## No hostname set - check hostbuild.env ##"
     exit
 fi
-
-echo "## Setting Up Environment ##"
 echo
+echo "## Setting Up Environment ##"
 echo "## Create new User $username ##"
 if id "$username" &>/dev/null; then
     echo -n "Enter new password for $username (blank to leave the same): "
@@ -62,6 +61,26 @@ if [[ "$sudoers" == "True" ]]
             else
                 echo "Set SUDO Happening for $username"
                 sudo echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        fi
+fi
+echo
+echo "## Setting up Packages ##"
+if [[ $saltminion == "True" ]]; then
+    inst_pkgs=$inst_pkgs" salt-minion"
+fi
+
+if [[ $inst_cockpit == "True" ]]; then
+    inst_pkgs=$inst_pkgs" cockpit"
+fi
+
+if [[ $inst_ntp == "True" ]]; then
+    inst_pkgs=$inst_pkgs" ntp"
+fi
+
+if [[ $raspi == "True" ]]; then
+        sudo apt update
+        if [[ $dietpi == "True" ]]; then
+            sudo apt install $inst_pkgs -y
         fi
 fi
 echo
