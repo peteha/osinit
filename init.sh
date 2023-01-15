@@ -58,7 +58,6 @@ if [[ "$sudoers" == "True" ]]
         if sudo grep -Fxq "$username ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
             then
                 echo "## Already SUDO ##"
-                ##
             else
                 echo "Set SUDO Happening for $username"
                 sudo echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -202,28 +201,6 @@ if [[ $inst_docker == "True" ]]; then
     fi
 fi
 
-# Install NTP #
-ntpstatus=$(systemctl is-active ntp)
-if [[ $inst_ntp == "True" ]]; then
-    sed -i '/^pool /d' /etc/ntp.conf
-    echo "pool $ntpserver" >> /etc/ntp.conf
-    systemctl restart ntp
-    echo
-    echo "## NTP Installed and using $ntpserver ##"
-fi
-
-
-if [[ $update == "True" ]]; then
-    echo
-    echo "## Updating environment and installing packages ##"
-	sudo apt update
-	sudo apt upgrade -y
-fi
-
-if [[ $reboot == "True" ]]
-then
-    reboot
-fi
 
 ##
 ##
