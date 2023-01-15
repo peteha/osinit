@@ -19,3 +19,27 @@ fi
 echo "## Scripts Installed - remove /opt/osbuild/hostbuild.env to reset ##"
 echo "## Using hostbuild.env ##"
 source hostbuild.env
+
+echo "## Setting variable ##"
+cur_tz=`cat /etc/timezone`
+fullhn="$buildhostname.$domain"
+
+echo "## Building For $fullhn ##"
+
+if [[ $buildhostname == "" ]]; then
+    echo "## No hostname set - check hostbuild.env ##"
+    exit
+fi
+
+echo "## Setting Up Environment ##"
+echo
+## Create new User
+if id "$username" &>/dev/null; then
+    echo -n "Enter new password for $username (blank to leave the same): "
+    read -s passwd
+    newuser=""
+else
+    echo -n "Enter Password for $username: "
+    read -s passwd
+    newuser=True
+fi
