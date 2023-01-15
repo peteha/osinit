@@ -6,9 +6,9 @@ mkdir -p /opt/osbuild
 cd /opt/osbuild
 ##
 echo "## Installing Scripts ##"
-curl -fs https://raw.githubusercontent.com/peteha/labosinit/main/osinit.sh --output osinit.sh
+curl -fs https://raw.githubusercontent.com/peteha/osinit/main/osinit.sh --output osinit.sh
 chmod +x osinit.sh
-curl -fs https://raw.githubusercontent.com/peteha/labosinit/main/certbuild.sh --output certbuild.sh
+curl -fs https://raw.githubusercontent.com/peteha/osinit/main/certbuild.sh --output certbuild.sh
 chmod +x certbuild.sh
 ##
 if [ ! -f hostbuild.env ]; then
