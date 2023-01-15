@@ -16,3 +16,6 @@ if [ ! -f hostbuild.env ]; then
     curl -fs https://raw.githubusercontent.com/peteha/labosinit/main/hostbuild.env --output hostbuild.env
     nano hostbuild.env
 fi
+echo "## Scripts Installed - remove /opt/osbuild/hostbuild.env to reset ##"
+echo "## Using hostbuild.env ##"
+source hostbuild.env
