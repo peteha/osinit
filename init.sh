@@ -33,7 +33,7 @@ fi
 
 echo "## Setting Up Environment ##"
 echo
-## Create new User
+echo "## Create new User $username ##"
 if id "$username" &>/dev/null; then
     echo -n "Enter new password for $username (blank to leave the same): "
     read -s passwd
@@ -43,3 +43,25 @@ else
     read -s passwd
     newuser=True
 fi
+echo
+echo "## Adding new User $username ##"
+if [ ! -z ${newuser} ]; then
+	echo "## Adding User '$username' ##"
+	useradd $username --create-home --shell /bin/bash --groups sudo
+	echo "$username:$passwd" | sudo chpasswd
+fi
+echo
+echo "## Setting sudo for new user $username ##"
+if [[ "$sudoers" == "True" ]]
+    then
+		# Set no sudo passwd
+        if sudo grep -Fxq "$username ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
+            then
+                echo "## Already SUDO ##"
+                ##
+            else
+                echo "Set SUDO Happening for $username"
+                sudo echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+        fi
+fi
+echo
